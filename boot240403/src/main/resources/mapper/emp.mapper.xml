@@ -4,23 +4,104 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
 	<!--  전체조회 -->
-	<select id ="" resultType="">
-	
+	<select id ="selectEmpAll" resultType="EmpVO">
+	SELECT employee_id
+	       , first_name
+	       , last_name
+	       , email
+	       , phone_number
+	       , hire_date
+	       , job_id
+	       , salary
+	       , commission_pct
+	       , manager_id
+	       , department_id
+	FROM employees
+	<where>
+		<if test="jobId != null and !jobId.equals('')">
+		job_id = #{jobId}
+		</if>
+	</where>
+	ORDER BY employee_id
 	</select>
 	<!--  단건조회 -->
-	<select id ="" resultType="">
-	
+	<select id ="selectEmp" resultType="EmpVO">
+	SELECT employee_id
+	       , first_name
+	       , last_name
+	       , email
+	       , phone_number
+	       , hire_date
+	       , job_id
+	       , salary
+	       , commission_pct
+	       , manager_id
+	       , department_id
+	FROM employees
+	WHERE employee_id = #{employeeId}
+	<!-- #과 $를 헛갈리지 말것. 전혀 다른 결과 나옴. -->
 	</select>
 	<!--  등록 -->
-	<insert id ="" parameterType="">
-	
+	<insert id ="insertEmp" parameterType="EmpVO">
+	<selectKey keyProperty="employeeId"
+			   resultType="Integer"
+			   order="BEFORE">
+			   SELECT NVL(MAX(employee_id),0) + 1
+			   FROM employees
+	</selectKey>
+	INSERT INTO employees
+			(
+				employee_id
+				, last_name
+				, email
+				, hire_date
+				<if test="jobId != null and !jobId.equals('')">				
+				, job_id
+				</if>
+				<if test="salary > 0">				
+				, salary
+				</if>
+				) 
+			VALUES(
+					#{employeeId}
+					, #{lastName}
+					, #{email}
+					<choose>
+						<when test="hireDate != null">
+							, #{hireDate}
+						</when>
+						<otherwise> <!-- 최소한의 디폴트값 -->
+							, sysdate
+						</otherwise>
+					</choose>
+					<if test="jobId != null and !jobId.equals('')">
+					,#{jobId}					
+					</if>
+					<if test="salary > 0">
+					,#{salary}
+					</if>
+					)
 	</insert>
 	<!--  수정 -->
-	<update id ="" parameterType="">
-	
+	<update id ="updateEmp" parameterType="EmpVO">
+		UPDATE employees
+		SET
+			last_name = #{lastName}
+			<if test="salary > 0">
+			, salary = #{salary}
+			</if>
+			<if test="email != null and !email.equals('')">
+			, email =#{email}
+			</if>
+			<if test="hireDate != null">
+			, hire_date = #{hireDate}
+			</if>
+			WHERE employee_id = #{employeeId}
 	</update>
 	<!--  삭제 -->
-	<delete id ="" parameterType="">
-	
+	<delete id ="deleteEmp" parameterType="int">
+	DELETE FROM employees
+	WHERE employee_id = #{eid}
+	<!-- 객체가 아니고, 기본타입 한가지가 넘어와 판단하는 경우에는 파라미터 명칭을 반드시 통일할 필요는 없다. -->
 	</delete>
 </mapper>
