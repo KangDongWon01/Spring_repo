@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th = "https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>등록</title>
+</head>
+	<body>
+		<form th:action="@{/empInsert}" method="post" th:object="${empVO}">
+			<div>
+				<label>사원번호<input type="text" th:field="*{employeeId}" readonly></label>
+			</div>
+			<div>
+				<label>이름<input type="text" th:field="*{lastName}"></label>
+			</div>
+			<div>
+				<label>이메일<input type="text" th:field="*{email}"></label>
+			</div>
+			<div>
+				<label>입사일<input type="date" th:field="*{hireDate}"></label>
+			</div>
+			<div>
+				<label>업무<input type="text" th:field="*{jobId}"></label>
+			</div>
+			<div>
+				<label>급여<input type="number" th:field="*{salary}"></label>
+			</div>
+			<button type = "submit">등록</button>
+		</form>
+	</body>
+</html>

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,13 +27,14 @@ public class HomeController {
 	//Method는 상관없음
 	//Content-type : application/x-www-form-urlencoded (쿼리스트링 포맷)
 	@RequestMapping(path="comobj", method= {RequestMethod.GET, RequestMethod.POST})
-	@ResponseBody
-	public String commandObject(EmpVO empVO) {
+//	@ResponseBody
+	public String commandObject(@ModelAttribute("emp")EmpVO empVO) {
 		log.info("path : /comobj");
 		log.info("employee_id : " + empVO.getEmployeeId());
 		log.info("last_name : " + empVO.getLastName());
 		log.info(empVO.toString());
-		return "";
+		return "home";
+		//classpath:/templates/ home .html
 	}
 	
 	@RequestMapping(path="reqparm", method= {RequestMethod.GET, RequestMethod.POST})

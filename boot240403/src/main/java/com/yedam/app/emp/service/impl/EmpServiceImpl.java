@@ -23,7 +23,7 @@ public class EmpServiceImpl implements EmpService{
 
 	@Override
 	public EmpVO empInfo(EmpVO empVo) {
-		return null;
+		return empMapper.selectEmp(empVo);
 	}
 
 	@Override
