@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>부서 정보 조회</title>
+</head>
+<body>
+	<div>
+		<div>
+			<label>부서번호<input type="text" th:value="${deptInfo.departmentId}" readonly></label>
+		</div>
+		<div>
+			<label>이름<input type="text" th:value="${deptInfo.departmentName}" readonly></label>
+		</div>
+		<div>
+			<label>관리자번호<input type="text" th:value="${deptInfo.managerId}" readonly></label>
+		</div>
+		<div>
+			<label>위치번호<input type="text" th:value="${deptInfo.locationId}" readonly></label>
+		</div>
+		<div>
+			<button type="button" th:onclick="|location.href='@{/deptList}'|">목록</button>
+		</div>
+	</div>
+</body>
+</html>

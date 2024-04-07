@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>전체 부서 조회</title>
+</head>
+<body>
+	<table border=1px solid black>
+		<thead>
+			<tr>
+				<th>부서번호</th>
+				<th>이름</th>
+				<th>관리자번호</th>
+				<th>위치번호</th>
+			</tr>
+		</thead>
+		<tbody>
+			<th:block th:each="deptInfo, stat : ${deptList}">
+				<tr th:id="${stat.odd}"
+					th:onclick="|location.href='@{/deptInfo(departmentId=${deptInfo.departmentId}, departmentName=${deptInfo.departmentName})}'|">
+					<td th:text="${deptInfo.departmentId}" />
+					<td th:text="${deptInfo.departmentName}" />
+					<td th:text="${deptInfo.managerId}" />
+					<td th:text="${deptInfo.locationId}" />
+				</tr>
+			</th:block>			
+		</tbody>
+	</table>
+</body>
+</html>

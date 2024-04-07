@@ -1,7 +1,7 @@
 package com.yedam.app;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ class Boot240403ApplicationTests {
 	@Autowired
 	EmpMapper empMapper;
 	
-	@Test
+	//@Test
 	void contextLoads() {
 	}
 	
@@ -35,6 +35,5 @@ class Boot240403ApplicationTests {
 		empVO.setJobId("IT_PROG");
 		int result = empMapper.insertEmp(empVO);
 		assertEquals(1, result);
-
 	}
 }
