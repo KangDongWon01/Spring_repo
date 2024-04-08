@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="common/configs/config :: ConfigFragment"></head>
+<body>
+	<header>
+		<th:block th:replace="common/fragments/header :: HeaderFragment" />
+	</header>
+	<main>
+		<!--  Content 영역 -->
+		<th:block layout:fragment="content" />
+	</main>
+	<footer>
+		<th:block th:replace ="common/fragments/footer :: FooterFragment" />
+	</footer>
+</body>
+</html>

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th = "https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="content">
 <head>
 <meta charset="UTF-8">
 <title>전체 사원 조회</title>
@@ -11,19 +14,21 @@
 				<th>사원번호</th>
 				<th>이름</th>
 				<th>입사일자</th>
-				<th>업무</th>		
+				<th>업무</th>
 			</tr>
 		</thead>
 		<tbody>
-			<th:block th:each="empInfo, status : ${empList}"> <!-- status는 생략해도 됨. JSP문법과 1:1대응됨 -->
+			<th:block th:each="empInfo, status : ${empList}">
+				<!-- status는 생략해도 됨. JSP문법과 1:1대응됨 -->
 				<tr th:id="${status.index}"
-				th:onclick="|location.href='@{/empInfo(employeeId=${empInfo.employeeId})}'|">
-				<!-- 위 온클릭에서 담아 보낼 값이 여러개면 다음과 같이 표현-->
-				<!-- th:onclick="location.href='@{/empInfo(employeeId=${empInfo.employeeId}, lastName=${empInfo.lastName})}'"> -->
+					th:onclick="|location.href='@{/empInfo(employeeId=${empInfo.employeeId})}'|">
+					<!-- 위 온클릭에서 담아 보낼 값이 여러개면 다음과 같이 표현-->
+					<!-- th:onclick="location.href='@{/empInfo(employeeId=${empInfo.employeeId}, lastName=${empInfo.lastName})}'"> -->
 					<td th:text="${empInfo.employeeId}" />
 					<td th:text="${empInfo.lastName}" />
 					<td th:text="${#dates.format(empInfo.hireDate, 'yyyy년MM월dd일')}" />
-					<td>[[ ${empInfo.jobId} ]]</td> <!-- 표현은 다르지만 위와 같은 결과 도출 -->
+					<td>[[ ${empInfo.jobId} ]]</td>
+					<!-- 표현은 다르지만 위와 같은 결과 도출 -->
 				</tr>
 			</th:block>
 		</tbody>

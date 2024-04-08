@@ -21,4 +21,7 @@ public interface EmpMapper {
 	
 	// 삭제
 	public int deleteEmp(@Param("eid")int employeeId);
+	
+	// 등록할 사원번호 조회
+	public EmpVO getEmpId();
 }

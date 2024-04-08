@@ -43,12 +43,14 @@
 	</select>
 	<!--  등록 -->
 	<insert id ="insertEmp" parameterType="EmpVO">
-	<selectKey keyProperty="employeeId"
+	<!-- 
+	 <selectKey keyProperty="employeeId"
 			   resultType="Integer"
 			   order="BEFORE">
 			   SELECT NVL(MAX(employee_id),0) + 1
 			   FROM employees
 	</selectKey>
+	 -->
 	INSERT INTO employees
 			(
 				employee_id
@@ -104,4 +106,10 @@
 	WHERE employee_id = #{eid}
 	<!-- 객체가 아니고, 기본타입 한가지가 넘어와 판단하는 경우에는 파라미터 명칭을 반드시 통일할 필요는 없다. -->
 	</delete>
+	
+	<!-- 등록할 사원번호 조회 -->
+	<select id = "getEmpId" resultType="EmpVO">
+		SELECT NVL(MAX(employee_id),0)+1 as employee_id 
+		FROM employees
+	</select>
 </mapper>

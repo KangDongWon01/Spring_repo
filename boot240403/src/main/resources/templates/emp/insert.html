@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th = "https://www.thymeleaf.org">
+<html xmlns:th = "https://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="content">
 <head>
 <meta charset="UTF-8">
 <title>등록</title>
 </head>
 	<body>
-		<form th:action="@{/empInsert}" method="post" th:object="${empVO}">
+		<form name="insertForm" th:action="@{/empInsert}" method="post" th:object="${empVO}">
 			<div>
 				<label>사원번호<input type="text" th:field="*{employeeId}" readonly></label>
 			</div>
@@ -26,5 +29,36 @@
 			</div>
 			<button type = "submit">등록</button>
 		</form>
+		<script type="text/javascript">
+			document.querySelector('form[name="insertForm"]')
+					.addEventListener('submit', validationCheck);
+			
+			function validationCheck(event){
+					event.preventDefault();
+					
+					let name = document.getElementById('lastName');
+					if(name.value == ''){
+						alert('name 필수 입력하세요');
+						name.focus();
+						return;
+					}
+					
+					let email = document.getElementById('email');
+					if(email.value == ''){
+						alert('email 필수 입력하세요');
+						email.focus();
+						return;
+					}
+					
+					let jobId = document.getElementById('jobId');
+					if(jobId.value == ''){
+						alert('jobId 필수 입력하세요');
+						jobId.focus();
+						return;
+					}
+					
+					insertForm.submit();
+			};
+		</script>
 	</body>
 </html>

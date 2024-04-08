@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th = "https://www.thymeleaf.org">
+<html xmlns:th = "https://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}"
+	  layout:fragment="content">
 <head>
 <meta charset="UTF-8">
 <title>사원 정보 조회</title>
@@ -21,11 +24,17 @@
 		<label>업무<input type="text" th:value="${empInfo.jobId}" readonly></label>
 	</div>
 	<div>
-		<label>급여숫자 포매팅.<input type="number" th:value="${empInfo.salary}" readonly>
+		<label>급여<input type="number" th:value="${empInfo.salary}" readonly>
 		<!-- <span>[[ ${#numbers.formatInteger(empInfo.salary, 3, 'COMMA')} ]] </span> -->
 		</label>
 	</div>
-	<button type = "button" th:onclick="|location.href='@{|empList}'|">
+	<button type = "button" th:onclick="|location.href='@{/empUpdate(employeeId=${empInfo.employeeId})}'|">
+	수정
+	</button>
+	<button type = "button" th:onclick="|location.href='@{/empDelete(employeeId=${empInfo.employeeId})}'|">
+	삭제
+	</button>
+	<button type = "button" th:onclick="|location.href='@{/empList}'|">
 	등록
 	</button>
 </body>

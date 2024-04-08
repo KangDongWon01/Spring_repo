@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="content">
+<head>
+<meta charset="UTF-8">
+<title>수정</title>
+</head>
+<body>
+	<form th:action="@{/empUpdate}" method="post" th:object="${empInfo}">
+		<div>
+			<label>사원번호<input type="text" th:field="*{employeeId}"
+				readonly></label>
+		</div>
+		<div>
+			<label>이름<input type="text" th:field="*{lastName}"></label>
+		</div>
+		<div>
+			<label>이메일<input type="text" th:field="*{email}"></label>
+		</div>
+		<div>
+			<label>입사일<input type="date" th:field="*{hireDate}"></label>
+		</div>
+		<div>
+			<label>급여<input type="number" th:field="*{salary}"></label>
+		</div>
+		<div>
+			<button type="button" id="updateBtn">등록</button>
+		</div>
+	</form>
+	<script type="text/javascript">
+		document.querySelector('#updateBtn').addEventListener('click',
+				updateAjax);
+
+		function validationCheck() {
+
+			let name = document.getElementById('lastName');
+			if (name.value == '') {
+				alert('name 필수 입력하세요');
+				name.focus();
+				return;
+			}
+		};
+	</script>
+	<!-- JQuery -->
+	<script>
+	document.querySelector('#updateBtn').addEventListener('click', updateAjax);
+	function updateAjax(event){
+		if(!validationCheck()) return;
+		let dataObj = getEmpObj();
+		fetch('empUpdate',{
+			method: 'post',
+			//headers: {
+			//	'content-type': 'application/json'
+			//},
+			//body: JSON.stringify(formObj)
+			body: new URLSearchParams(dataObj) // 쿼리문자열 타입
+		})
+		.then(res => res.json())
+		.then(result => {
+			console.log(result);
+		})
+	}
+	
+	function getEmpObj(){
+		let formTag = document.querySelector('form');
+		let formData = new FormData(formTag); // formData 클래스 >> ajax 데이터 >> form데이터 꺼낼때
+		let formObj = {};
+		formData.forEach((val,key) => {
+			//console.log(val, key);
+			formObj[key] = val;
+		});
+		return formObj;
+	}
+	
+	function validationCheck(event){ // 이벤트객체 필요 >> 일시적 막기
+		let name = document.getElementById('lastName');
+		if(name.value == ''){ // 공백 기준, null undefine x
+			alert('사원이름은 필수로 입력해야 합니다.');
+			name.focut(); // 해당 요소 커서
+			return false; // 메소드 종료
+		}
+		return true;
+	};
+	</script>
+</body>
+</html>
