@@ -13,7 +13,7 @@ public class EmpVO {
 	private String lastName;
 	private String email;
 	private String phoneNumber;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "YYYY/MM/DD")
 	private Date hireDate;
 	private String jobId;
 	private double salary;
