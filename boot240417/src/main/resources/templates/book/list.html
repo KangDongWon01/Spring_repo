@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/default_layout}"
+	layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>도서 조회</title>
+<div class ="container">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>도서번호</th>
+				<th>도서명</th>
+				<th>표지</th>
+				<th>출판일자</th>
+				<th>금액</th>
+				<th>출판사</th>
+				<th>도서소개</th>
+			</tr>
+		</thead>
+		<tbody> 
+<!-- 임시 변수 : ${컨트롤러에서 불러올 대상(model.addAttribute 에서 지정한, 컨트롤러가 모델에 저장한 이름)} -->
+			<tr th:each=" info : ${books} ">
+				<td>[[${info.bookNo}]]</td>
+				<td>[[${info.bookName}]]</td>
+				<!-- 표지의 경우 템플릿 문법으로 불러올 수 없다. -->
+				<td><img style="width : 100px; height : 100px;" th:src="@{/images/{fileName}(fileName=${info.bookCovering})}"></td>
+				<!-- th:src="@{/info(id=100, name=Hong)}" 
+					 저렇게 괄호 안에 넣어서 보내면, 쿼리스트링이 붙어 나간다..
+					 th:src="@{/images/{fileName}(fileName=${books.image})}"
+					 -->
+				<td>[[${#dates.format((info.bookDate), 'yyyy/MM/dd')}]]</td>
+				<td>[[${#numbers.formatInteger(info.bookPrice, 3, 'COMMA')}]]</td>
+				<td>[[${info.bookPublisher}]]</td>
+				<td>[[${info.bookInfo}]]</td>
+			</tr>
+			</th:block>
+		</tbody>
+	</table>
+</div>
+</html>

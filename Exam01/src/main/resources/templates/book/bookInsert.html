@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layouts/default_layout}"
+      layout:fragment="Content">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h4>도서 등록</h4>
+
+<form name = "insertForm" th:action="@{/bookInsert}" method="post" th:object="${bookVO}">
+			<div>
+				<label>책 번호<input type="number" th:field="*{bookNo}" readonly></label>
+			</div>
+			<div>
+				<label>책이름<input type="text" th:field="*{bookName}"></label>
+			</div>
+			<div>
+				<label>이미지<input type="text" th:field="*{bookCovering}"></label>
+			</div>
+			<div>
+				<label>출판일<input type="date" th:field="*{bookDate}"></label>
+			</div>
+			<div>
+				<label>가격<input type="number" th:field="*{bookPrice}"></label>
+			</div>
+			<div>
+				<label>출판사<input type="text" th:field="*{bookPublisher}"></label>
+			</div>
+			<div>
+				<label>설명<input type="text" th:field="*{bookInfo}"></label>
+			</div>
+			<button type = "submit">등록</button>
+		</form>
+		<script type="text/javascript">
+			document.querySelector('form[name="insertForm"]')
+					.addEventListener('submit', validationCheck);
+			
+			function validationCheck(event){
+					event.preventDefault();
+					
+					let name = document.getElementById('bookName');
+					if(name.value == ''){
+						alert('bookName 필수 입력하세요');
+						name.focus();
+						return;
+					}
+					
+					insertForm.submit();
+			};
+		</script>
+	</body>
+</html>
